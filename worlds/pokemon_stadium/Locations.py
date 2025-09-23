@@ -18,22 +18,22 @@ def is_valid_location(world: 'PokemonStadiumWorld', name) -> bool:
     return True
 
 pokemon_stadium_locations = {
-    'Pewter Gym':       LocData(20000010, 'Gym Leader Castle'),
-    'Brock':            LocData(20000011, 'Pewter Gym'),
-    'Cerulean Gym':     LocData(20000020, 'Gym Leader Castle'),
-    'Misty':            LocData(20000021, 'Cerulean Gym'),
-    'Vermillion Gym':   LocData(20000030, 'Gym Leader Castle'),
-    'Surge':            LocData(20000031, 'Vermillion Gym'),
-    'Celadon Gym':      LocData(20000040, 'Gym Leader Castle'),
-    'Erika':            LocData(20000041, 'Celadon Gym'),
-    'Fuchsia Gym':      LocData(20000050, 'Gym Leader Castle'),
-    'Koga':             LocData(20000051, 'Fuchsia Gym'),
-    'Saffron Gym':      LocData(20000060, 'Gym Leader Castle'),
-    'Sabrina':          LocData(20000061, 'Saffron Gym'),
-    'Cinnabar Gym':     LocData(20000070, 'Gym Leader Castle'),
-    'Blaine':           LocData(20000071, 'Cinnabar Gym'),
-    'Viridian Gym':     LocData(20000080, 'Gym Leader Castle'),
-    'Giovanni':         LocData(20000081, 'Viridian Gym'),
+    'Pewter Gym':           LocData(20000010, 'Gym Leader Castle'),
+    'BROCK':                LocData(20000011, 'Gym Leader Castle'),
+    'Cerulean Gym':         LocData(20000020, 'Gym Leader Castle'),
+    'MISTY':                LocData(20000021, 'Gym Leader Castle'),
+    'Vermillion Gym':       LocData(20000030, 'Gym Leader Castle'),
+    'SURGE':                LocData(20000031, 'Gym Leader Castle'),
+    'Celadon Gym':          LocData(20000040, 'Gym Leader Castle'),
+    'ERIKA':                LocData(20000041, 'Gym Leader Castle'),
+    'Fuchsia Gym':          LocData(20000050, 'Gym Leader Castle'),
+    'KOGA':                 LocData(20000051, 'Gym Leader Castle'),
+    'Saffron Gym':          LocData(20000060, 'Gym Leader Castle'),
+    'SABRINA':              LocData(20000061, 'Gym Leader Castle'),
+    'Cinnabar Gym':         LocData(20000070, 'Gym Leader Castle'),
+    'BLAINE':               LocData(20000071, 'Gym Leader Castle'),
+    'Viridian Gym':         LocData(20000080, 'Gym Leader Castle'),
+    'GIOVANNI':             LocData(20000081, 'Gym Leader Castle'),
 }
 
 event_locations = {

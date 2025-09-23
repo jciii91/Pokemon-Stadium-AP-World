@@ -1,4 +1,5 @@
 import logging
+import random
 
 from BaseClasses import Item, ItemClassification
 
@@ -15,7 +16,7 @@ def create_itempool(world: 'PokemonStadiumWorld') -> List[Item]:
     # This is a good place to grab anything you need from options
 
     for name in pokemon_stadium_items:
-        if name != 'Victory':
+        if name != 'Victory' and name not in world.starting_gym_keys:
             item_pool.append(create_item(world, name))
 
     victory = create_item(world, 'Victory')
@@ -77,12 +78,34 @@ pokemon_stadium_items = {
     'Victory': ItemData(10000000, ItemClassification.progression)
 }
 
+gym_keys = [
+    'Pewter City Key',
+    'Cerulean City Key',
+    'Vermillion City Key',
+    'Celadon City Key',
+    'Fuchsia City Key',
+    'Saffron City Key',
+    'Cinnabar Island Key',
+    'Viridian City Key',
+]
+
+gym_badge_codes = [
+    10000002,
+    10000004,
+    10000006,
+    10000008,
+    10000010,
+    10000012,
+    10000014,
+    10000016,
+]
+
 junk_items = {
-    "An Old Gamecube": ItemData(20050011, ItemClassification.filler, 0),
+    "Pokedoll": ItemData(20050011, ItemClassification.filler, 0),
 }
 
 junk_weights = {
-    "An Old Gamecube": 40,
+    "Pokedoll": 40,
 }
 
 item_table = {
