@@ -2,11 +2,11 @@ import hashlib
 import os
 
 from settings import get_settings
-import subprocess
+import Utils
 from worlds.AutoWorld import World
 from worlds.Files import APProcedurePatch, APTokenMixin, APTokenTypes
 
-import Utils
+from .randomizer import stadium_randomizer
 
 NOP = bytes([0x00,0x00,0x00,0x00])
 MD5Hash = "ed1378bc12115f71209a77844965ba50"
@@ -42,9 +42,17 @@ def get_base_rom_path():
     return file_name
 
 def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
+    # version = settings['ROMVersion']
+    bst_factor = world.options.BaseStatTotalRandomness.value
+    glc_rental_factor = world.options.GymCastleRentalRandomness.value
+    glc_trainer_factor = world.options.GymCastleTrainerRandomness.value
+    randomizer = stadium_randomizer.Randomizer('US_1.0', bst_factor, glc_rental_factor, glc_trainer_factor)
+
     # Bypass CIC
-    patch.write_token(APTokenTypes.WRITE, 0x63C, NOP)
-    patch.write_token(APTokenTypes.WRITE, 0x648, NOP)
+    randomizer.disable_checksum(patch)
+    randomizer.randomize_base_stats(patch)
+    randomizer.randomize_glc_trainer_pokemon_round1(patch)
+    randomizer.randomize_glc_rentals_round1(patch)
 
     # Set GP Register to 80420000
     patch.write_token(APTokenTypes.WRITE, 0x202B8, bytes([0x3C, 0x1C, 0x80, 0x42]))

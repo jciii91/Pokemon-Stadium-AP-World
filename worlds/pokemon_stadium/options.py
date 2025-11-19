@@ -21,7 +21,7 @@ class VictoryCondition(Choice):
 
 class GymCastleTrainerRandomness(Choice):
     """
-    Controls the level of randomness for the enemy teams in Gym Leader Castle.
+    Controls the level of randomness for the enemy team moves in Gym Leader Castle.
     Vanilla - No change
     Low - Stats are fairly even in distribution. Moveset has a status, STAB, and higher attack stat aligned move. (4th move is fully random)
     Medium - No extreme stat distributions. Moveset has a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
@@ -34,13 +34,51 @@ class GymCastleTrainerRandomness(Choice):
     option_high = 4
     default = 1
 
+class GymCastleRentalRandomness(Choice):
+    """
+    Controls the level of randomness for the rental Pokemon moves in Gym Leader Castle.
+    Vanilla - No change
+    Low - Moveset has a status, STAB, and higher attack stat aligned move. (4th move is fully random)
+    Medium - Moveset has a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
+    High - Moveset has a higher attack stat aligned move. (all other moves are fully random)
+    """
+    display_name = "Gym Castle Rental Randomness, Moves"
+    option_vanilla = 1
+    option_low = 2
+    option_medium = 3
+    option_high = 4
+    default = 1
+
+class BaseStatTotalRandomness(Choice):
+    """
+    Controls the level of randomness for Pokemon BST. Stat distribution per Pokemon will follow a randomly selected distribution curve.
+    The higher the selection, the more extreme a curve you may see used.
+    Vanilla - No change
+    Low - 3 distribution types
+    Medium - 4 distribution types
+    High - 5 distribution types
+    """
+    display_name = "BST Randomness"
+    option_vanilla = 1
+    option_low = 2
+    option_medium = 3
+    option_high = 4
+    default = 1
+
 @dataclass
 class PokemonStadiumOptions(PerGameCommonOptions):
-    VictoryCondition:   VictoryCondition
-    ExtraLocations:     GymCastleTrainerRandomness
+    VictoryCondition:           VictoryCondition
+    GymCastleTrainerRandomness: GymCastleTrainerRandomness
+    GymCastleRentalRandomness:  GymCastleRentalRandomness
+    BaseStatTotalRandomness:    BaseStatTotalRandomness
 
 # This is where you organize your options
 # Its entirely up to you how you want to organize it
 pokemon_stadium_option_groups: Dict[str, List[Any]] = {
-    "General Options": [VictoryCondition, GymCastleTrainerRandomness],
+    "General Options": [
+        VictoryCondition,
+        BaseStatTotalRandomness,
+        GymCastleRentalRandomness,
+        GymCastleTrainerRandomness,
+    ],
 }

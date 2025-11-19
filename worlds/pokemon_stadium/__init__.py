@@ -81,7 +81,9 @@ class PokemonStadiumWorld(World):
         slot_data: Dict[str, object] = {
             "options": {
                 "VictoryCondition": self.options.VictoryCondition.value,
-                # "GymCastleTrainerRandomness":   self.options.GymCastleTrainerRandomness.value,
+                "BaseStatTotalRandomness":   self.options.BaseStatTotalRandomness.value,
+                "GymCastleRentalRandomness":   self.options.GymCastleRentalRandomness.value,
+                "GymCastleTrainerRandomness":   self.options.GymCastleTrainerRandomness.value,
             },
             "Seed": self.multiworld.seed_name,  # to verify the server's multiworld
             "Slot": self.multiworld.player_name[self.player],  # to connect to server
