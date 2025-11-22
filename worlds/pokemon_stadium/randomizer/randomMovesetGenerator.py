@@ -73,7 +73,7 @@ class MovesetGenerator:
         first_type = "PHY" if bst_list[1] > bst_list[4] else "SPE"
         
         # second move is a STAB damaging move if factor is at least 2
-        if (rando_factor > 1):
+        if (rando_factor < 4):
             if random.random() < 0.4:
                 second_type = get_type_name(pkm_type)
             else:
@@ -91,7 +91,7 @@ class MovesetGenerator:
                 second_type = "STA"
 
         # third move afflicts a status or affects stats if factor is at least 3
-        if (rando_factor > 2):
+        if (rando_factor < 3):
             third_type = "STA"
         else:
             one_in_three = random.randrange(1, 99)
