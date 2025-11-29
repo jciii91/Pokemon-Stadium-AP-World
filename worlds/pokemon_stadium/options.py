@@ -23,9 +23,9 @@ class GymCastleTrainerRandomness(Choice):
     """
     Controls the level of randomness for the enemy team moves in Gym Leader Castle.
     Vanilla - No change
-    Low - Stats are fairly even in distribution. Moveset has a status, STAB, and higher attack stat aligned move. (4th move is fully random)
-    Medium - No extreme stat distributions. Moveset has a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
-    High - All stat distributions possible. Moveset has a higher attack stat aligned move. (all other moves are fully random)
+    Low - Movesets have a status, STAB, and higher attack stat aligned move. (4th move is fully random)
+    Medium - Movesets have a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
+    High - Movesets have a higher attack stat aligned move. (all other moves are fully random)
     """
     display_name = "Gym Castle Trainer Randomness"
     option_vanilla = 1
@@ -38,11 +38,11 @@ class GymCastleRentalRandomness(Choice):
     """
     Controls the level of randomness for the rental Pokemon moves in Gym Leader Castle.
     Vanilla - No change
-    Low - Moveset has a status, STAB, and higher attack stat aligned move. (4th move is fully random)
-    Medium - Moveset has a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
-    High - Moveset has a higher attack stat aligned move. (all other moves are fully random)
+    Low - Movesets have a status, STAB, and higher attack stat aligned move. (4th move is fully random)
+    Medium - Movesets have a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
+    High - Movesets have a higher attack stat aligned move. (all other moves are fully random)
     """
-    display_name = "Gym Castle Rental Randomness, Moves"
+    display_name = "Gym Castle Rental Randomness"
     option_vanilla = 1
     option_low = 2
     option_medium = 3
@@ -52,7 +52,8 @@ class GymCastleRentalRandomness(Choice):
 class BaseStatTotalRandomness(Choice):
     """
     Controls the level of randomness for Pokemon BST. Stat distribution per Pokemon will follow a randomly selected distribution curve.
-    The higher the selection, the more extreme a curve you may see used.
+    The higher the selection, the more extreme a curve you may see used. 
+    Stat changes are universal. Rental Pokemon and enemy trainer team Pokemon use the same BSTs.
     Vanilla - No change
     Low - 3 distribution types
     Medium - 4 distribution types

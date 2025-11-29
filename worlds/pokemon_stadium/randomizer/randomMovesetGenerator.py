@@ -74,13 +74,7 @@ class MovesetGenerator:
         
         # second move is a STAB damaging move if factor is at least 2
         if (rando_factor < 4):
-            if random.random() < 0.4:
-                second_type = get_type_name(pkm_type)
-            else:
-                if random.random() < 0.5:
-                    second_type = "PHY"
-                else:
-                    second_type = "SPE"
+            second_type = get_type_name(pkm_type)
         else:
             one_in_three = random.randrange(1, 99)
             if one_in_three <= 33:
