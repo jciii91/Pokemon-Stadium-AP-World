@@ -34,6 +34,15 @@ pokemon_stadium_locations = {
     'BLAINE':               LocData(20000071, 'Gym Leader Castle'),
     'Viridian Gym':         LocData(20000080, 'Gym Leader Castle'),
     'GIOVANNI':             LocData(20000081, 'Gym Leader Castle'),
+    'Magikarp\'s Splash':   LocData(20000100, 'Kids Club'),
+    'Clefairy Says':        LocData(20000101, 'Kids Club'),
+    'Run, Rattata, Run':    LocData(20000102, 'Kids Club'),
+    'Snore War':            LocData(20000103, 'Kids Club'),
+    'Thundering Dynamo':    LocData(20000104, 'Kids Club'),
+    'Sushi-Go-Round':       LocData(20000105, 'Kids Club'),
+    'Ekans\'s Hoop Hurl':   LocData(20000106, 'Kids Club'),
+    'Rock Harden':          LocData(20000107, 'Kids Club'),
+    'Dig! Dig! Dig!':       LocData(20000108, 'Kids Club'),
 }
 
 event_locations = {

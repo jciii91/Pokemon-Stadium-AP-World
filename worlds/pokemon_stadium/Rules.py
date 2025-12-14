@@ -27,5 +27,9 @@ def set_rules(world: "PokemonStadiumWorld"):
     set_rule(world.multiworld.get_location("BLAINE", player), lambda state: state.has("Cinnabar Island Key", player))
     set_rule(world.multiworld.get_location("GIOVANNI", player), lambda state: state.has("Viridian City Key", player))
 
+    # Beat Rival Rule
+    badges = ["Boulder Badge", "Cascade Badge", "Thunder Badge", "Rainbow Badge", "Soul Badge", "Marsh Badge", "Volcano Badge", "Earth Badge"]
+    set_rule(world.multiworld.get_location("Beat Rival", player), lambda state: state.has_all(badges, player))
+
     # Victory condition rule!
     world.multiworld.completion_condition[player] = lambda state: state.has("Victory", player)

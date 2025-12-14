@@ -24,6 +24,7 @@ class PokemonStadiumClient(BizHawkClient):
 
         self.local_checked_locations = set()
         self.glc_loaded = False
+        self.minigame_index = None
 
     async def validate_rom(self, ctx: 'BizHawkClientContext') -> bool:
         try:
@@ -48,6 +49,8 @@ class PokemonStadiumClient(BizHawkClient):
                 (0x420000, 4, 'RDRAM'), # GLC Flag
                 (0x420010, 4, 'RDRAM'), # Entered Battle Flag
                 (0x148AC8, 12, 'RDRAM'), # Beat Rival Flag
+                (0x12FC1C, 4, 'RDRAM'), # Minigame being played
+                (0x124860, 4, 'RDRAM'), # Minigame results
             ]
         )
 
@@ -179,6 +182,17 @@ class PokemonStadiumClient(BizHawkClient):
                 "cmd": "StatusUpdate",
                 "status": ClientStatus.CLIENT_GOAL,
             }])
+
+        # Minigames
+        if flags[3].startswith(b'\x00\x03\x00') and flags[3][3] in range(9):
+            self.minigame_index = flags[3][3]
+
+            await bizhawk.write(ctx.bizhawk_ctx, [(0x124860, [0x00, 0x00, 0x00, 0x00], 'RDRAM')])
+
+        if self.minigame_index != None and flags[4] == b'\x01\x00\x00\x00':
+            minigame_ap_acode = 20000100 + self.minigame_index
+            await ctx.check_locations([minigame_ap_acode])
+            self.minigame_index = None
 
     def lowest_unlocked_from(self, lower_bound):
         for i in range(lower_bound, 9):

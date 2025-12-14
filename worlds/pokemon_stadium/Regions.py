@@ -17,6 +17,9 @@ def create_regions(world: "PokemonStadiumWorld"):
     create_region_and_connect(world, "Hall of Fame", "Rival -> Hall of Fame", gym_leader_castle)
     create_region_and_connect(world, "Beat Rival", "Hall of Fame -> Beat Rival", gym_leader_castle)
 
+    # -------------------------------------- Kids Club --------------------------------------    
+    gym_leader_castle = create_region_and_connect(world, "Kids Club", "Menu -> Kids Club", menu)
+
 def create_region(world: "PokemonStadiumWorld", name: str) -> Region:
     reg = Region(name, world.player, world.multiworld)
 
