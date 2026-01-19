@@ -84,6 +84,13 @@ class PokemonStadiumWorld(World):
                 "BaseStatTotalRandomness":   self.options.BaseStatTotalRandomness.value,
                 "GymCastleRentalRandomness":   self.options.GymCastleRentalRandomness.value,
                 "GymCastleTrainerRandomness":   self.options.GymCastleTrainerRandomness.value,
+                "PokeCupRentalRandomness":      self.options.PokeCupRentalRandomness.value,
+                "RentalListShuffle":            self.options.RentalListShuffle.value,
+                "RentalListShuffleGLC":         self.options.RentalListShuffleGLC.value,
+                "RentalListShufflePokeCup":     self.options.RentalListShufflePokeCup.value,
+                "RentalListShufflePrimeCup":    self.options.RentalListShufflePrimeCup.value,
+                "RentalListShufflePetitCup":    self.options.RentalListShufflePetitCup.value,
+                "RentalListShufflePikaCup":     self.options.RentalListShufflePikaCup.value,
             },
             "Seed": self.multiworld.seed_name,  # to verify the server's multiworld
             "Slot": self.multiworld.player_name[self.player],  # to connect to server

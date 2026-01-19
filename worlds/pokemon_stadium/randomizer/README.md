@@ -11,8 +11,18 @@ https://stadiumrando.com
      - Base stats
 	 - EVs and IVs
 	 - Moves
+	 - Rental Order
    - Enemies
      - Pokemon
 		- Base stats
 		- EVs and IVs
 		- Moves
+ - Poke Cup
+	- Player Rentals
+	 - Base stats
+	 - EVs and IVs
+	 - Moves
+	 - Rental Order
+
+
+	

@@ -12,6 +12,11 @@ rom_offsets = {
         "SetGLCFlag2": 3888628,
         "GymCastle_Round1": 9057228,
         "Rentals_GymCastle_Round1" : 9119616,
+        "Rentals_PokeCup" : 9105952,
+        "Rentals_PrimeCup_Round1" : 9093424,
+        "Rentals_PrimeCup_Round2" : 9201920,
+        "Rentals_PetitCup" : 9081984,
+        "Rentals_PikaCup" : 9085776,
     },
     "PAL_1.1" : {
         "CheckSum1" : 1596,

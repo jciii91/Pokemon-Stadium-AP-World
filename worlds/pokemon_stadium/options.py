@@ -49,6 +49,21 @@ class GymCastleRentalRandomness(Choice):
     option_high = 4
     default = 1
 
+class PokeCupRentalRandomness(Choice):
+    """
+    Controls the level of randomness for the rental Pokemon moves in the Poke Cup.
+    Vanilla - No change
+    Low - Movesets have a status, STAB, and higher attack stat aligned move. (4th move is fully random)
+    Medium - Movesets have a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
+    High - Movesets have a higher attack stat aligned move. (all other moves are fully random)
+    """
+    display_name = "Poke Cup Rental Randomness"
+    option_vanilla = 1
+    option_low = 2
+    option_medium = 3
+    option_high = 4
+    default = 1
+
 class BaseStatTotalRandomness(Choice):
     """
     Controls the level of randomness for Pokemon BST. Stat distribution per Pokemon will follow a randomly selected distribution curve.
@@ -66,12 +81,112 @@ class BaseStatTotalRandomness(Choice):
     option_high = 4
     default = 1
 
+class RentalListShuffle(Choice):
+    """
+    Controls whether the rental pokemon list is randomized or not
+    Instead of going in dex order, the rental tables will be shuffled
+
+    Off - No change
+    On - All tables shuffled
+    Manual: Select which tables are shuffled
+    """
+    display_name = "Rental List Shuffle"
+    option_off = 1
+    option_on = 2
+    option_manual = 3
+    default = 1
+    
+class RentalListShuffleGLC(Choice):
+    """
+    Controls whether the rental pokemon list for the Gym Leader Castle is randomized or not
+    Instead of going in dex order, the rental tables will be shuffled
+    This option only matters if RentalListShuffle is set to Manual mode.
+    Default is set to On
+
+    Off - No change
+    On - All tables shuffled
+    """
+    display_name = "RLS Manual: Gym Leader Castle"
+    option_off = 1
+    option_on = 2
+    default = 2
+
+class RentalListShufflePokeCup(Choice):
+    """
+    Controls whether the rental pokemon list for the Poke Cup is randomized or not
+    Instead of going in dex order, the rental tables will be shuffled
+    This option only matters if RentalListShuffle is set to Manual mode.
+    Default is set to On
+
+    Off - No change
+    On - All tables shuffled
+    """
+    display_name = "RLS Manual: Poke Cup"
+    option_off = 1
+    option_on = 2
+    default = 2
+
+class RentalListShufflePrimeCup(Choice):
+    """
+    Controls whether the rental pokemon list for the Prime Cup is randomized or not
+    Instead of going in dex order, the rental tables will be shuffled
+    This option only matters if RentalListShuffle is set to Manual mode.
+    Default is set to On
+
+    Off - No change
+    On - All tables shuffled
+    """
+    display_name = "RLS Manual: Prime Cup"
+    option_off = 1
+    option_on = 2
+    default = 2
+
+class RentalListShufflePetitCup(Choice):
+    """
+    Controls whether the rental pokemon list for the Petit Cup is randomized or not
+    Instead of going in dex order, the rental tables will be shuffled
+    This option only matters if RentalListShuffle is set to Manual mode.
+    Default is set to On
+
+    Off - No change
+    On - All tables shuffled
+    """
+    display_name = "RLS Manual: Petit Cup"
+    option_off = 1
+    option_on = 2
+    default = 2
+
+class RentalListShufflePikaCup(Choice):
+    """
+    Controls whether the rental pokemon list for the Pika Cup is randomized or not
+    Instead of going in dex order, the rental tables will be shuffled
+    This option only matters if RentalListShuffle is set to Manual mode.
+    Default is set to On
+
+    Off - No change
+    On - All tables shuffled
+    """
+    display_name = "RLS Manual: Pika Cup"
+    option_off = 1
+    option_on = 2
+    default = 2
+
+
+
 @dataclass
 class PokemonStadiumOptions(PerGameCommonOptions):
     VictoryCondition:           VictoryCondition
     GymCastleTrainerRandomness: GymCastleTrainerRandomness
     GymCastleRentalRandomness:  GymCastleRentalRandomness
     BaseStatTotalRandomness:    BaseStatTotalRandomness
+    PokeCupRentalRandomness:    PokeCupRentalRandomness
+    RentalListShuffle:          RentalListShuffle
+    RentalListShuffleGLC:       RentalListShuffleGLC
+    RentalListShufflePokeCup:   RentalListShufflePokeCup
+    RentalListShufflePrimeCup:  RentalListShufflePrimeCup
+    RentalListShufflePetitCup:  RentalListShufflePetitCup
+    RentalListShufflePikaCup:   RentalListShufflePikaCup
+
 
 # This is where you organize your options
 # Its entirely up to you how you want to organize it
@@ -81,5 +196,12 @@ pokemon_stadium_option_groups: Dict[str, List[Any]] = {
         BaseStatTotalRandomness,
         GymCastleRentalRandomness,
         GymCastleTrainerRandomness,
+        PokeCupRentalRandomness,
+        RentalListShuffle,
+        RentalListShuffleGLC,
+        RentalListShufflePokeCup,
+        RentalListShufflePrimeCup,
+        RentalListShufflePetitCup,
+        RentalListShufflePikaCup
     ],
 }
