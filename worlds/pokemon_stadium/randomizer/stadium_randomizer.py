@@ -326,7 +326,7 @@ class Randomizer():
         #Will do manual checks when we get to each list's shuffle code
 
         #Gym Leader Castle
-        if (self.rental_list_shuffle_factor == 2 or self.rls_glc_factor == 2):
+        if (self.rental_list_shuffle_factor == 2 or (self.rental_list_shuffle_factor == 3 and self.rls_glc_factor == 2)):
             #Shuffle Poke Cup Rental Table
             offset = constants.rom_offsets[self.version]["Rentals_GymCastle_Round1"]
             
@@ -436,7 +436,7 @@ class Randomizer():
                 offset+= len(bytes(pokemon_to_add))
             print("GLC rentals shuffled successfully")
         #Poke Cup
-        if (self.rental_list_shuffle_factor == 2 or self.rls_poke_factor == 2):
+        if (self.rental_list_shuffle_factor == 2 or (self.rental_list_shuffle_factor == 3 and self.rls_poke_factor == 2)):
             #Shuffle Poke Cup Rental Table
             offset = constants.rom_offsets[self.version]["Rentals_PokeCup"]
             
@@ -547,15 +547,15 @@ class Randomizer():
             print("Poke Cup rentals shuffled successfully")
         
         #Prime Cup
-        if (self.rental_list_shuffle_factor == 2 or self.rls_prime_factor == 2):
+        if (self.rental_list_shuffle_factor == 2 or (self.rental_list_shuffle_factor == 3 and self.rls_prime_factor == 2)):
             #TO DO 
             print("Prime Cup Not implemented")
         #Petit Cup
-        if (self.rental_list_shuffle_factor == 2 or self.rls_petit_factor == 2):
+        if (self.rental_list_shuffle_factor == 2 or (self.rental_list_shuffle_factor == 3 and self.rls_petit_factor == 2)):
             #TO DO
             print("Petit Cup Not implemented")
         #Pika Cup
-        if (self.rental_list_shuffle_factor == 2 or self.rls_pika_factor == 2):
+        if (self.rental_list_shuffle_factor == 2 or (self.rental_list_shuffle_factor == 3 and self.rls_pika_factor == 2)):
             #TO DO
             print("Pika Cup Not implemented")
         
