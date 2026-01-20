@@ -19,6 +19,23 @@ class VictoryCondition(Choice):
     option_clear_master_ball_cup = 2
     default = 1
 
+class BaseStatTotalRandomness(Choice):
+    """
+    Controls the level of randomness for Pokemon BST. Stat distribution per Pokemon will follow a randomly selected distribution curve.
+    The higher the selection, the more extreme a curve you may see used. 
+    Stat changes are universal. Rental Pokemon and enemy trainer team Pokemon use the same BSTs.
+    Vanilla - No change
+    Low - 3 distribution types
+    Medium - 4 distribution types
+    High - 5 distribution types
+    """
+    display_name = "BST Randomness"
+    option_vanilla = 1
+    option_low = 2
+    option_medium = 3
+    option_high = 4
+    default = 1
+
 class GymCastleTrainerRandomness(Choice):
     """
     Controls the level of randomness for the enemy team moves in Gym Leader Castle.
@@ -64,17 +81,15 @@ class PokeCupRentalRandomness(Choice):
     option_high = 4
     default = 1
 
-class BaseStatTotalRandomness(Choice):
+class PrimeCupRentalRandomness(Choice):
     """
-    Controls the level of randomness for Pokemon BST. Stat distribution per Pokemon will follow a randomly selected distribution curve.
-    The higher the selection, the more extreme a curve you may see used. 
-    Stat changes are universal. Rental Pokemon and enemy trainer team Pokemon use the same BSTs.
+    Controls the level of randomness for the rental Pokemon moves in the Prime Cup.
     Vanilla - No change
-    Low - 3 distribution types
-    Medium - 4 distribution types
-    High - 5 distribution types
+    Low - Movesets have a status, STAB, and higher attack stat aligned move. (4th move is fully random)
+    Medium - Movesets have a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
+    High - Movesets have a higher attack stat aligned move. (all other moves are fully random)
     """
-    display_name = "BST Randomness"
+    display_name = "Prime Cup Rental Randomness"
     option_vanilla = 1
     option_low = 2
     option_medium = 3
@@ -176,10 +191,11 @@ class RentalListShufflePikaCup(Choice):
 @dataclass
 class PokemonStadiumOptions(PerGameCommonOptions):
     VictoryCondition:           VictoryCondition
+    BaseStatTotalRandomness:    BaseStatTotalRandomness
     GymCastleTrainerRandomness: GymCastleTrainerRandomness
     GymCastleRentalRandomness:  GymCastleRentalRandomness
-    BaseStatTotalRandomness:    BaseStatTotalRandomness
     PokeCupRentalRandomness:    PokeCupRentalRandomness
+    PrimeCupRentalRandomness:   PrimeCupRentalRandomness
     RentalListShuffle:          RentalListShuffle
     RentalListShuffleGLC:       RentalListShuffleGLC
     RentalListShufflePokeCup:   RentalListShufflePokeCup
@@ -194,9 +210,10 @@ pokemon_stadium_option_groups: Dict[str, List[Any]] = {
     "General Options": [
         VictoryCondition,
         BaseStatTotalRandomness,
-        GymCastleRentalRandomness,
         GymCastleTrainerRandomness,
+        GymCastleRentalRandomness,
         PokeCupRentalRandomness,
+        PrimeCupRentalRandomness,
         RentalListShuffle,
         RentalListShuffleGLC,
         RentalListShufflePokeCup,

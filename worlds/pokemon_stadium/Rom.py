@@ -44,16 +44,17 @@ def get_base_rom_path():
 def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
     # version = settings['ROMVersion']
     bst_factor = world.options.BaseStatTotalRandomness.value
-    glc_rental_factor = world.options.GymCastleRentalRandomness.value
     glc_trainer_factor = world.options.GymCastleTrainerRandomness.value
+    glc_rental_factor = world.options.GymCastleRentalRandomness.value
     pokecup_rental_factor = world.options.PokeCupRentalRandomness.value
+    primecup_rental_factor = world.options.PrimeCupRentalRandomness.value
     rental_list_shuffle_factor = world.options.RentalListShuffle.value
     rental_list_shuffle_glc_factor = world.options.RentalListShuffleGLC.value
     rental_list_shuffle_poke__cup_factor = world.options.RentalListShufflePokeCup.value
     rental_list_shuffle_prime_cup_factor = world.options.RentalListShufflePrimeCup.value
     rental_list_shuffle_petit_cup_factor = world.options.RentalListShufflePetitCup.value
     rental_list_shuffle_pika_cup_factor = world.options.RentalListShufflePikaCup.value
-    randomizer = stadium_randomizer.Randomizer('US_1.0', bst_factor, glc_rental_factor, glc_trainer_factor, pokecup_rental_factor,
+    randomizer = stadium_randomizer.Randomizer('US_1.0', bst_factor, glc_trainer_factor, glc_rental_factor, pokecup_rental_factor, primecup_rental_factor,
                                                rental_list_shuffle_factor, rental_list_shuffle_glc_factor, rental_list_shuffle_poke__cup_factor,
                                                rental_list_shuffle_prime_cup_factor, rental_list_shuffle_petit_cup_factor,
                                                rental_list_shuffle_pika_cup_factor)
@@ -64,6 +65,7 @@ def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
     randomizer.randomize_glc_trainer_pokemon_round1(patch)
     randomizer.randomize_glc_rentals_round1(patch)
     randomizer.randomize_pokecup_rentals(patch)
+    randomizer.randomize_primecup_rentals_round1(patch)
     randomizer.shuffle_rentals(patch)
 
     # Set GP Register to 80420000

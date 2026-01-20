@@ -82,9 +82,10 @@ class PokemonStadiumWorld(World):
             "options": {
                 "VictoryCondition": self.options.VictoryCondition.value,
                 "BaseStatTotalRandomness":   self.options.BaseStatTotalRandomness.value,
-                "GymCastleRentalRandomness":   self.options.GymCastleRentalRandomness.value,
                 "GymCastleTrainerRandomness":   self.options.GymCastleTrainerRandomness.value,
+                "GymCastleRentalRandomness":   self.options.GymCastleRentalRandomness.value,
                 "PokeCupRentalRandomness":      self.options.PokeCupRentalRandomness.value,
+                "PrimeCupRentalRandomness":   self.options.PrimeCupRentalRandomness.value,
                 "RentalListShuffle":            self.options.RentalListShuffle.value,
                 "RentalListShuffleGLC":         self.options.RentalListShuffleGLC.value,
                 "RentalListShufflePokeCup":     self.options.RentalListShufflePokeCup.value,
