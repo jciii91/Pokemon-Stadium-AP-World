@@ -413,7 +413,7 @@ class Randomizer():
                     offset += 17
     def randomize_petitcup_rentals(self, patch) -> None:
         if self.petitcup_rental_factor > 1:
-                #randomize pokemon in Poke Cup rental list
+                #randomize pokemon in Petit Cup rental list
                 offset = constants.rom_offsets[self.version]["Rentals_PetitCup"]
                 
                 # Write expected number of returned Pokémon
@@ -422,7 +422,7 @@ class Randomizer():
 
                 for j in range(45):
                     
-                    patch.write_token(APTokenTypes.WRITE, offset, bytes([j + 1])) # Write Dex number
+                    patch.write_token(APTokenTypes.WRITE, offset, bytes([constants.petit_cup_list[j]["DexNum"]])) # Write Dex number
                     offset += 1
 
                     patch.write_token(APTokenTypes.WRITE, offset, bytes.fromhex("00"))
@@ -445,7 +445,7 @@ class Randomizer():
                     offset += 1
 
                     # Random moveset
-                    bst_list = self.bst_list[j]
+                    bst_list = constants.petit_cup_list[j]["bst"]
                     factor = self.petitcup_rental_factor
                     new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
                     for attack in new_attacks:
@@ -466,11 +466,11 @@ class Randomizer():
                     offset += 3
 
                     for k in range(5):
-                        ev = int.to_bytes(self.evs[j][k], 2, "big")
+                        ev = int.to_bytes(self.evs[constants.petit_cup_list[j]["DexNum"]][k], 2, "big")
                         patch.write_token(APTokenTypes.WRITE, offset, bytes(ev))
                         offset += 2
 
-                    ivs_bytes = bytes.fromhex(self.ivs[j])
+                    ivs_bytes = bytes.fromhex(self.ivs[constants.petit_cup_list[j]["DexNum"]])
                     patch.write_token(APTokenTypes.WRITE, offset, ivs_bytes)
                     offset += len(ivs_bytes)
 
@@ -483,9 +483,9 @@ class Randomizer():
                     patch.write_token(APTokenTypes.WRITE, offset, bytes.fromhex("00"))
                     offset += 1
 
-                    stats = self.new_display_stats[j]
-                    evs = self.evs[j]
-                    ivs = self.ivs[j]
+                    stats = self.new_display_stats[constants.petit_cup_list[j]["DexNum"]]
+                    evs = self.evs[constants.petit_cup_list[j]["DexNum"]]
+                    ivs = self.ivs[constants.petit_cup_list[j]["DexNum"]]
                     disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
                     patch.write_token(APTokenTypes.WRITE, offset, bytes(disp))
                     offset += len(disp)
@@ -540,7 +540,7 @@ class Randomizer():
                 current_pokemon_bytearray.extend(bytes.fromhex("00"))
                 offset += 1
 
-                # Random moveset
+                # I don't know how to check the bytes in the rom for the current moveset
                 bst_list = self.bst_list[j]
                 factor = self.glc_rental_factor
                 new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
@@ -650,7 +650,7 @@ class Randomizer():
                 current_pokemon_bytearray.extend(bytes.fromhex("00"))
                 offset += 1
 
-                # Random moveset
+                # I don't know how to check the bytes in the rom for the current moveset
                 bst_list = self.bst_list[j]
                 factor = self.pokecup_rental_factor
                 new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
@@ -761,7 +761,7 @@ class Randomizer():
                 current_pokemon_bytearray.extend(bytes.fromhex("00"))
                 offset += 1
 
-                # Random moveset
+                # I don't know how to check the bytes in the rom for the current moveset
                 bst_list = self.bst_list[j]
                 factor = self.primecup_rental_factor
                 new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
@@ -837,7 +837,7 @@ class Randomizer():
             print("Prime Cup rentals shuffled successfully")
         #Petit Cup
         if (self.rental_list_shuffle_factor == 2 or (self.rental_list_shuffle_factor == 3 and self.rls_petit_factor == 2)):
-            #Shuffle GLC Rental Table
+            #Shuffle Petit Cup Rental Table
             offset = constants.rom_offsets[self.version]["Rentals_PetitCup"]
             
             pokemon_holder = []
@@ -846,10 +846,10 @@ class Randomizer():
             patch.write_token(APTokenTypes.WRITE, offset, bytes.fromhex("0000002D"))
             offset += 4
 
-            for j in range(149):
+            for j in range(45):
                 current_pokemon_bytearray = bytearray()
                 
-                current_pokemon_bytearray.extend(bytes([j + 1]))
+                current_pokemon_bytearray.extend(bytes([constants.petit_cup_list[j]["DexNum"]]))
                 offset += 1
 
                 current_pokemon_bytearray.extend(bytes.fromhex("00"))
@@ -871,8 +871,8 @@ class Randomizer():
                 current_pokemon_bytearray.extend(bytes.fromhex("00"))
                 offset += 1
 
-                # Random moveset
-                bst_list = self.bst_list[j]
+                # I don't know how to check the bytes in the rom for the current moveset
+                bst_list = constants.petit_cup_list[j]["bst"]
                 factor = self.petitcup_rental_factor
                 new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
                 for attack in new_attacks:
@@ -897,7 +897,7 @@ class Randomizer():
                     current_pokemon_bytearray.extend(bytes(ev))
                     offset += 2
 
-                ivs_bytes = bytes.fromhex(self.ivs[j])
+                ivs_bytes = bytes.fromhex(self.ivs[constants.petit_cup_list[j]["DexNum"]])
                 current_pokemon_bytearray.extend(ivs_bytes)
                 offset += len(ivs_bytes)
 
@@ -910,14 +910,14 @@ class Randomizer():
                 current_pokemon_bytearray.extend(bytes.fromhex("00"))
                 offset += 1
 
-                stats = self.new_display_stats[j]
-                evs = self.evs[j]
-                ivs = self.ivs[j]
+                stats = self.new_display_stats[constants.petit_cup_list[j]["DexNum"]]
+                evs = self.evs[constants.petit_cup_list[j]["DexNum"]]
+                ivs = self.ivs[constants.petit_cup_list[j]["DexNum"]]
                 disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
                 current_pokemon_bytearray.extend(bytes(disp))
                 offset += len(disp)
 
-                pokemon_name = constants.kanto_dex_names[j]["name"].encode().ljust(11, b'\x00')
+                pokemon_name = constants.petit_cup_list[j]["name"].encode().ljust(11, b'\x00')
                 current_pokemon_bytearray.extend(bytes(pokemon_name))
                 offset += 11
 
