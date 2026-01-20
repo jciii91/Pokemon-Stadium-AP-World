@@ -96,6 +96,21 @@ class PrimeCupRentalRandomness(Choice):
     option_high = 4
     default = 1
 
+class PetitCupRentalRandomness(Choice):
+    """
+    Controls the level of randomness for the rental Pokemon moves in the Petit Cup.
+    Vanilla - No change
+    Low - Movesets have a status, STAB, and higher attack stat aligned move. (4th move is fully random)
+    Medium - Movesets have a STAB, and higher attack stat aligned move. (3rd and 4th moves are fully random)
+    High - Movesets have a higher attack stat aligned move. (all other moves are fully random)
+    """
+    display_name = "Petit Cup Rental Randomness"
+    option_vanilla = 1
+    option_low = 2
+    option_medium = 3
+    option_high = 4
+    default = 1
+
 class RentalListShuffle(Choice):
     """
     Controls whether the rental pokemon list is randomized or not
@@ -196,6 +211,7 @@ class PokemonStadiumOptions(PerGameCommonOptions):
     GymCastleRentalRandomness:  GymCastleRentalRandomness
     PokeCupRentalRandomness:    PokeCupRentalRandomness
     PrimeCupRentalRandomness:   PrimeCupRentalRandomness
+    PetitCupRentalRandomness:   PetitCupRentalRandomness
     RentalListShuffle:          RentalListShuffle
     RentalListShuffleGLC:       RentalListShuffleGLC
     RentalListShufflePokeCup:   RentalListShufflePokeCup
@@ -214,6 +230,7 @@ pokemon_stadium_option_groups: Dict[str, List[Any]] = {
         GymCastleRentalRandomness,
         PokeCupRentalRandomness,
         PrimeCupRentalRandomness,
+        PetitCupRentalRandomness,
         RentalListShuffle,
         RentalListShuffleGLC,
         RentalListShufflePokeCup,
