@@ -86,6 +86,7 @@ class PokemonStadiumWorld(World):
                 "GymCastleRentalRandomness":   self.options.GymCastleRentalRandomness.value,
                 "PokeCupRentalRandomness":      self.options.PokeCupRentalRandomness.value,
                 "PrimeCupRentalRandomness":   self.options.PrimeCupRentalRandomness.value,
+                "PetitCupRentalRandomness":   self.options.PetitCupRentalRandomness.value,
                 "RentalListShuffle":            self.options.RentalListShuffle.value,
                 "RentalListShuffleGLC":         self.options.RentalListShuffleGLC.value,
                 "RentalListShufflePokeCup":     self.options.RentalListShufflePokeCup.value,
