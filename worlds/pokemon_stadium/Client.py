@@ -175,14 +175,6 @@ class PokemonStadiumClient(BizHawkClient):
             await ctx.check_locations(set([event_locations['Beat Rival'].ap_code]))
             await bizhawk.write(ctx.bizhawk_ctx, [(0x420010, [0x00, 0x00, 0x00, 0x00], 'RDRAM')])
 
-        # Send game clear
-        if not ctx.finished_game and pokemon_stadium_items['Victory'].ap_code in item_codes:
-            ctx.finished_game = True
-            await ctx.send_msgs([{
-                "cmd": "StatusUpdate",
-                "status": ClientStatus.CLIENT_GOAL,
-            }])
-
         # Minigames
         if flags[3].startswith(b'\x00\x03\x00') and flags[3][3] in range(9):
             self.minigame_index = flags[3][3]
@@ -192,7 +184,17 @@ class PokemonStadiumClient(BizHawkClient):
         if self.minigame_index != None and flags[4] == b'\x01\x00\x00\x00':
             minigame_ap_acode = 20000100 + self.minigame_index
             await ctx.check_locations([minigame_ap_acode])
+
             self.minigame_index = None
+            await bizhawk.write(ctx.bizhawk_ctx, [(0x124860, [0x00, 0x00, 0x00, 0x00], 'RDRAM')])
+
+        # Send game clear
+        if not ctx.finished_game and pokemon_stadium_items['Victory'].ap_code in item_codes:
+            ctx.finished_game = True
+            await ctx.send_msgs([{
+                "cmd": "StatusUpdate",
+                "status": ClientStatus.CLIENT_GOAL,
+            }])
 
     def lowest_unlocked_from(self, lower_bound):
         for i in range(lower_bound, 9):
