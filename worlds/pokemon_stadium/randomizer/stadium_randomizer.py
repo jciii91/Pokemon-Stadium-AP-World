@@ -117,7 +117,7 @@ class Randomizer():
                         new_stats = self.new_display_stats[pokedex_num]
                         evs = self.evs[pokedex_num]
                         ivs = self.ivs[pokedex_num]
-                        disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(new_stats, evs, ivs)
+                        disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(new_stats, evs, ivs, 50)
                         patch.write_token(APTokenTypes.WRITE, offset, bytes(disp))
                         offset += len(disp)
 
@@ -221,7 +221,7 @@ class Randomizer():
                     stats = self.new_display_stats[j]
                     evs = self.evs[j]
                     ivs = self.ivs[j]
-                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 50)
                     patch.write_token(APTokenTypes.WRITE, offset, bytes(disp))
                     offset += len(disp)
 
@@ -310,7 +310,7 @@ class Randomizer():
                     stats = self.new_display_stats[j]
                     evs = self.evs[j]
                     ivs = self.ivs[j]
-                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 50)
                     patch.write_token(APTokenTypes.WRITE, offset, bytes(disp))
                     offset += len(disp)
 
@@ -398,7 +398,7 @@ class Randomizer():
                     stats = self.new_display_stats[j]
                     evs = self.evs[j]
                     ivs = self.ivs[j]
-                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 100)
                     patch.write_token(APTokenTypes.WRITE, offset, bytes(disp))
                     offset += len(disp)
 
@@ -465,12 +465,13 @@ class Randomizer():
                     patch.write_token(APTokenTypes.WRITE, offset, bytes(exp_bytes)) # Experience
                     offset += 3
 
+                    currentPokeDexNum = constants.petit_cup_list[j]["DexNum"]
                     for k in range(5):
-                        ev = int.to_bytes(self.evs[constants.petit_cup_list[j]["DexNum"]][k], 2, "big")
+                        ev = int.to_bytes(self.evs[currentPokeDexNum][k], 2, "big")
                         patch.write_token(APTokenTypes.WRITE, offset, bytes(ev))
                         offset += 2
 
-                    ivs_bytes = bytes.fromhex(self.ivs[constants.petit_cup_list[j]["DexNum"]])
+                    ivs_bytes = bytes.fromhex(self.ivs[currentPokeDexNum])
                     patch.write_token(APTokenTypes.WRITE, offset, ivs_bytes)
                     offset += len(ivs_bytes)
 
@@ -483,10 +484,10 @@ class Randomizer():
                     patch.write_token(APTokenTypes.WRITE, offset, bytes.fromhex("00"))
                     offset += 1
 
-                    stats = self.new_display_stats[constants.petit_cup_list[j]["DexNum"]]
-                    evs = self.evs[constants.petit_cup_list[j]["DexNum"]]
-                    ivs = self.ivs[constants.petit_cup_list[j]["DexNum"]]
-                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                    stats = self.new_display_stats[currentPokeDexNum]
+                    evs = self.evs[currentPokeDexNum]
+                    ivs = self.ivs[currentPokeDexNum]
+                    disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 25)
                     patch.write_token(APTokenTypes.WRITE, offset, bytes(disp))
                     offset += len(disp)
 
@@ -582,7 +583,7 @@ class Randomizer():
                 stats = self.new_display_stats[j]
                 evs = self.evs[j]
                 ivs = self.ivs[j]
-                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 50)
                 current_pokemon_bytearray.extend(bytes(disp))
                 offset += len(disp)
 
@@ -692,7 +693,7 @@ class Randomizer():
                 stats = self.new_display_stats[j]
                 evs = self.evs[j]
                 ivs = self.ivs[j]
-                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 50)
                 current_pokemon_bytearray.extend(bytes(disp))
                 offset += len(disp)
 
@@ -803,7 +804,7 @@ class Randomizer():
                 stats = self.new_display_stats[j]
                 evs = self.evs[j]
                 ivs = self.ivs[j]
-                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 100)
                 current_pokemon_bytearray.extend(bytes(disp))
                 offset += len(disp)
 
@@ -891,13 +892,13 @@ class Randomizer():
                 exp_bytes = int.to_bytes(int(constants.petit_cup_list[j]["exp"]), 3, "big")
                 current_pokemon_bytearray.extend(bytes(exp_bytes))
                 offset += 3
-
+                currentPokeDexNum = constants.petit_cup_list[j]["DexNum"]
                 for k in range(5):
-                    ev = int.to_bytes(self.evs[j][k], 2, "big")
+                    ev = int.to_bytes(self.evs[currentPokeDexNum][k], 2, "big")
                     current_pokemon_bytearray.extend(bytes(ev))
                     offset += 2
 
-                ivs_bytes = bytes.fromhex(self.ivs[constants.petit_cup_list[j]["DexNum"]])
+                ivs_bytes = bytes.fromhex(self.ivs[currentPokeDexNum])
                 current_pokemon_bytearray.extend(ivs_bytes)
                 offset += len(ivs_bytes)
 
@@ -910,10 +911,10 @@ class Randomizer():
                 current_pokemon_bytearray.extend(bytes.fromhex("00"))
                 offset += 1
 
-                stats = self.new_display_stats[constants.petit_cup_list[j]["DexNum"]]
-                evs = self.evs[constants.petit_cup_list[j]["DexNum"]]
-                ivs = self.ivs[constants.petit_cup_list[j]["DexNum"]]
-                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs)
+                stats = self.new_display_stats[currentPokeDexNum]
+                evs = self.evs[currentPokeDexNum]
+                ivs = self.ivs[currentPokeDexNum]
+                disp = writeDisplayData.DisplayDataWriter.write_gym_tower_display(stats, evs, ivs, 25)
                 current_pokemon_bytearray.extend(bytes(disp))
                 offset += len(disp)
 
