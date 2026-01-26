@@ -49,6 +49,7 @@ def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
     pokecup_rental_factor = world.options.PokeCupRentalRandomness.value
     primecup_rental_factor = world.options.PrimeCupRentalRandomness.value
     petitcup_rental_factor = world.options.PetitCupRentalRandomness.value
+    pikacup_rental_factor = world.options.PikaCupRentalRandomness.value
     rental_list_shuffle_factor = world.options.RentalListShuffle.value
     rental_list_shuffle_glc_factor = world.options.RentalListShuffleGLC.value
     rental_list_shuffle_poke__cup_factor = world.options.RentalListShufflePokeCup.value
@@ -57,7 +58,7 @@ def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
     rental_list_shuffle_pika_cup_factor = world.options.RentalListShufflePikaCup.value
     rom_bytes = get_base_rom_bytes()
     randomizer = stadium_randomizer.Randomizer('US_1.0', bst_factor, glc_trainer_factor, glc_rental_factor, pokecup_rental_factor, primecup_rental_factor,
-                                               petitcup_rental_factor, rental_list_shuffle_factor, rental_list_shuffle_glc_factor, rental_list_shuffle_poke__cup_factor,
+                                               petitcup_rental_factor, pikacup_rental_factor, rental_list_shuffle_factor, rental_list_shuffle_glc_factor, rental_list_shuffle_poke__cup_factor,
                                                rental_list_shuffle_prime_cup_factor, rental_list_shuffle_petit_cup_factor,
                                                rental_list_shuffle_pika_cup_factor, rom_bytes)
 
@@ -75,6 +76,8 @@ def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
         randomizer.randomize_primecup_rentals_round1(patch)
     if petitcup_rental_factor > 1:
         randomizer.randomize_petitcup_rentals(patch)
+    if pikacup_rental_factor > 1:
+        randomizer.randomize_pikacup_rentals(patch)
     if rental_list_shuffle_factor > 1:
         if rental_list_shuffle_factor != 3: #Not in manual mode
             randomizer.shuffle_rentals(patch)
