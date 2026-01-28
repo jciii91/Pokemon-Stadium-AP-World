@@ -636,13 +636,17 @@ class Randomizer():
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
 
-            # I don't know how to check the bytes in the rom for the current moveset
-            bst_list = self.bst_list[j]
-            factor = self.glc_rental_factor
-            new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
-            for attack in new_attacks:
-                current_pokemon_bytearray.extend(bytes([attack]))
-                offset += 1
+            if self.glc_rental_factor > 1:
+                bst_list = self.bst_list[j]
+                factor = self.glc_rental_factor
+                new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
+                for attack in new_attacks:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
+            else:
+                for attack in constants.GLC_list[j]["Moveset"]:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
 
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
@@ -746,14 +750,17 @@ class Randomizer():
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
 
-            # I don't know how to check the bytes in the rom for the current moveset
-            bst_list = self.bst_list[j]
-            factor = self.pokecup_rental_factor
-            new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
-            for attack in new_attacks:
-                current_pokemon_bytearray.extend(bytes([attack]))
-                offset += 1
-
+            if self.pokecup_rental_factor > 1:
+                bst_list = self.bst_list[j]
+                factor = self.pokecup_rental_factor
+                new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
+                for attack in new_attacks:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
+            else:
+                for attack in constants.poke_cup_list[j]["Moveset"]:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
 
@@ -856,13 +863,17 @@ class Randomizer():
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
 
-            # I don't know how to check the bytes in the rom for the current moveset
-            bst_list = self.bst_list[j]
-            factor = self.primecup_rental_factor
-            new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
-            for attack in new_attacks:
-                current_pokemon_bytearray.extend(bytes([attack]))
-                offset += 1
+            if self.primecup_rental_factor > 1:
+                bst_list = self.bst_list[j]
+                factor = self.primecup_rental_factor
+                new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
+                for attack in new_attacks:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
+            else:
+                for attack in constants.prime_cup_list[j]["Moveset"]:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
 
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
@@ -966,14 +977,18 @@ class Randomizer():
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
 
-            # I don't know how to check the bytes in the rom for the current moveset
-            bst_list = constants.petit_cup_list[j]["bst"]
-            factor = self.petitcup_rental_factor
-            new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
-            for attack in new_attacks:
-                current_pokemon_bytearray.extend(bytes([attack]))
-                offset += 1
-
+            #If random moves are on
+            if self.petitcup_rental_factor > 1:
+                bst_list = constants.petit_cup_list[j]["bst"]
+                factor = self.petitcup_rental_factor
+                new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
+                for attack in new_attacks:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
+            else:
+                for attack in constants.petit_cup_list[j]["Moveset"]:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
 
@@ -1076,13 +1091,17 @@ class Randomizer():
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1
 
-            # I don't know how to check the bytes in the rom for the current moveset
-            bst_list = constants.pika_cup_list[j]["bst"]
-            factor = self.pikacup_rental_factor
-            new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
-            for attack in new_attacks:
-                current_pokemon_bytearray.extend(bytes([attack]))
-                offset += 1
+            if self.pikacup_rental_factor > 1:
+                bst_list = constants.pika_cup_list[j]["bst"]
+                factor = self.pikacup_rental_factor
+                new_attacks = randomMovesetGenerator.MovesetGenerator.get_random_moveset(bst_list, factor, pkm_type)
+                for attack in new_attacks:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
+            else:
+                for attack in constants.pika_cup_list[j]["Moveset"]:
+                    current_pokemon_bytearray.extend(bytes([attack]))
+                    offset += 1
 
             current_pokemon_bytearray.extend(bytes.fromhex("00"))
             offset += 1

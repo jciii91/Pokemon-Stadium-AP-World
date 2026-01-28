@@ -93,7 +93,8 @@ def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
             if rental_list_shuffle_poke__cup_factor > 1:
                 randomizer.shuffle_poke(patch)
 
-
+    # Testing adjusting the length of the rental table list
+    patch.write_token(APTokenTypes.WRITE, 0x80220E20, bytes([0x00, 0x00, 0x00, 0x32]))
     # Set GP Register to 80420000
     patch.write_token(APTokenTypes.WRITE, 0x202B8, bytes([0x3C, 0x1C, 0x80, 0x42]))
 
