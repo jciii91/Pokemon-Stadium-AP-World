@@ -33,9 +33,10 @@ def create_itempool(world: 'PokemonStadiumWorld') -> List[Item]:
     item_pool += create_multiple_items(world, 'Prime Cup - Tier Upgrade', 3, ItemClassification.progression)
 
     # Place useful items
-    item_pool += create_multiple_items(world, 'GLC PC Box Upgrade', 6, ItemClassification.useful)
-    item_pool += create_multiple_items(world, 'Poke Cup PC Box Upgrade', 6, ItemClassification.useful)
-    item_pool += create_multiple_items(world, 'Prime Cup PC Box Upgrade', 6, ItemClassification.useful)
+    upgrade_count = 30 if world.options.Trainersanity.value == 1 else 6
+    item_pool += create_multiple_items(world, 'GLC PC Box Upgrade', upgrade_count, ItemClassification.useful)
+    item_pool += create_multiple_items(world, 'Poke Cup PC Box Upgrade', upgrade_count, ItemClassification.useful)
+    item_pool += create_multiple_items(world, 'Prime Cup PC Box Upgrade', upgrade_count, ItemClassification.useful)
 
     for name in bonus_pokemon_items:
         item_pool.append(create_item(world, name))

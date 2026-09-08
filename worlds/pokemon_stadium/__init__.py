@@ -80,25 +80,13 @@ class PokemonStadiumWorld(World):
     def fill_slot_data(self) -> Dict[str, object]:
         slot_data: Dict[str, object] = {
             "options": {
-                "VictoryCondition":             self.options.VictoryCondition.value,
-                "BadgeRequirement":             self.options.BadgeRequirement.value,
-                "BaseStatTotalRandomness":      self.options.BaseStatTotalRandomness.value,
-                "Trainersanity":                self.options.Trainersanity.value,
-                "GymCastleTrainerRandomness":   self.options.GymCastleTrainerRandomness.value,
-                "PokeCupTrainerRandomness":     self.options.PokeCupTrainerRandomness.value,
-                "PrimeCupTrainerRandomness":     self.options.PrimeCupTrainerRandomness.value,
-                "PetitupTrainerRandomness":     self.options.PetitCupTrainerRandomness.value,
-                "PikaCupTrainerRandomness":     self.options.PikaCupTrainerRandomness.value,
-                "GymCastleRentalRandomness":   self.options.GymCastleRentalRandomness.value,
-                "PokeCupRentalRandomness":      self.options.PokeCupRentalRandomness.value,
-                "PrimeCupRentalRandomness":   self.options.PrimeCupRentalRandomness.value,
-                "PetitCupRentalRandomness":   self.options.PetitCupRentalRandomness.value,
-                "RentalListShuffle":            self.options.RentalListShuffle.value,
-                "RentalListShuffleGLC":         self.options.RentalListShuffleGLC.value,
-                "RentalListShufflePokeCup":     self.options.RentalListShufflePokeCup.value,
-                "RentalListShufflePrimeCup":    self.options.RentalListShufflePrimeCup.value,
-                "RentalListShufflePetitCup":    self.options.RentalListShufflePetitCup.value,
-                "RentalListShufflePikaCup":     self.options.RentalListShufflePikaCup.value,
+                "VictoryCondition":         self.options.VictoryCondition.value,
+                "BadgeRequirement":         self.options.BadgeRequirement.value,
+                "BaseStatTotalRandomness":  self.options.BaseStatTotalRandomness.value,
+                "RentalRandomness":         self.options.RentalRandomness.value,
+                "RentalListShuffle":        self.options.RentalListShuffle.value,
+                "TrainerRandomness":        self.options.TrainerRandomness.value,
+                "Trainersanity":            self.options.Trainersanity.value,
             },
             "Seed": self.multiworld.seed_name,  # to verify the server's multiworld
             "Slot": self.multiworld.player_name[self.player],  # to connect to server

@@ -44,40 +44,29 @@ def get_base_rom_path():
 def write_tokens(world:World, patch:PokemonStadiumProcedurePatch):
     # version = settings['ROMVersion']
     bst_factor = world.options.BaseStatTotalRandomness.value
-    glc_trainer_factor = world.options.GymCastleTrainerRandomness.value
-    pokecup_trainer_factor = world.options.PokeCupTrainerRandomness.value
-    primecup_trainer_factor = world.options.PrimeCupTrainerRandomness.value
-    petitcup_trainer_factor = world.options.PetitCupTrainerRandomness.value
-    pikacup_trainer_factor = world.options.PikaCupTrainerRandomness.value
-    glc_rental_factor = world.options.GymCastleRentalRandomness.value
-    pokecup_rental_factor = world.options.PokeCupRentalRandomness.value
-    primecup_rental_factor = world.options.PrimeCupRentalRandomness.value
-    petitcup_rental_factor = world.options.PetitCupRentalRandomness.value
-    pikacup_rental_factor = world.options.PikaCupRentalRandomness.value
-    rental_list_shuffle_factor = world.options.RentalListShuffle.value
-    rental_list_shuffle_glc_factor = world.options.RentalListShuffleGLC.value
-    rental_list_shuffle_poke_cup_factor = world.options.RentalListShufflePokeCup.value
-    rental_list_shuffle_prime_cup_factor = world.options.RentalListShufflePrimeCup.value
-    rental_list_shuffle_petit_cup_factor = world.options.RentalListShufflePetitCup.value
-    rental_list_shuffle_pika_cup_factor = world.options.RentalListShufflePikaCup.value
-    randomizer = stadium_randomizer.Randomizer(None, 'US_1.0', bst_factor, glc_trainer_factor, pokecup_trainer_factor, primecup_trainer_factor, petitcup_trainer_factor, 
-                                               pikacup_trainer_factor, glc_rental_factor, pokecup_rental_factor, primecup_rental_factor,petitcup_rental_factor, pikacup_rental_factor, 
-                                               rental_list_shuffle_factor, rental_list_shuffle_glc_factor, rental_list_shuffle_poke_cup_factor, rental_list_shuffle_prime_cup_factor, 
-                                               rental_list_shuffle_petit_cup_factor, rental_list_shuffle_pika_cup_factor)
+    trainer_factor = world.options.TrainerRandomness.value
+    rental_factor = world.options.RentalRandomness.value
+    shuffle_factor = world.options.RentalListShuffle.value
+    randomizer = stadium_randomizer.Randomizer(
+        seed=None,
+        version='US_1.0',
+        bst_factor=bst_factor,
+        trainer_factor=trainer_factor,
+        rental_factor=rental_factor,
+        shuffle_factor=shuffle_factor,
+    )
 
     # Bypass CIC
     randomizer.disable_checksum(patch)
+
     if bst_factor > 1:
         randomizer.randomize_base_stats(patch)
-    if glc_trainer_factor > 1:
+
+    if trainer_factor > 0:
         randomizer.randomize_glc_trainer_pokemon_round1(patch)
-    if pokecup_trainer_factor > 1:
         randomizer.randomize_pokecup_trainer_pokemon_round1(patch)
-    if primecup_trainer_factor > 1:
         randomizer.randomize_primecup_trainer_pokemon_round1(patch)
-    if petitcup_trainer_factor > 1:
         randomizer.randomize_petitcup_trainer_pokemon_round1(patch)
-    if pikacup_trainer_factor > 1:
         randomizer.randomize_pikacup_trainer_pokemon_round1(patch)
 
     randomizer.randomize_glc_rentals_round1(patch)
