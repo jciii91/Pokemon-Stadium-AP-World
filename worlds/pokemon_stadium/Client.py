@@ -61,9 +61,9 @@ class PokemonStadiumClient(BizHawkClient):
                 (0x148AC8, 12, 'RDRAM'), # Beat Rival Flag
                 (0x12FC1C, 4, 'RDRAM'), # Minigame being played
                 (0x124860, 4, 'RDRAM'), # Minigame results
-                (0xAE77F, 1, 'RDRAM'), # Enemy team HP slot 1
-                (0xAE7D3, 1, 'RDRAM'), # Enemy team HP slot 2
-                (0xAE827, 1, 'RDRAM'), # Enemy team HP slot 3
+                (0xAE77E, 2, 'RDRAM'), # Enemy team HP slot 1
+                (0xAE7D2, 2, 'RDRAM'), # Enemy team HP slot 2
+                (0xAE826, 2, 'RDRAM'), # Enemy team HP slot 3
                 (0x220C19, 3, 'RDRAM'), # GLC Rentals address
                 (0x221D99, 3, 'RDRAM'), # GLC Registration table address
                 (0x218CE9, 3, 'RDRAM'), # Poke Cup Rentals address
@@ -91,7 +91,7 @@ class PokemonStadiumClient(BizHawkClient):
         trainer_index = int(battle_info[0].hex()[6:])
 
         if player_has_battled:
-            player_won = all(x == b'\x00' for x in flags[5:8])
+            player_won = all(x == b'\x00\x00' for x in flags[5:8])
 
             if player_won:
                 ap_code = 20000000 + (mode * 100) + (gym_number * 10) + trainer_index
