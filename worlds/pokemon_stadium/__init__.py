@@ -15,7 +15,7 @@ from .Items import create_item, create_itempool, gym_keys, item_table
 from .Locations import get_location_names, get_total_locations
 from .Options import PokemonStadiumOptions
 from .Regions import create_regions
-from .Rom import MD5Hash, PokemonStadiumProcedurePatch, write_tokens
+from .Rom import PokemonStadiumProcedurePatch, write_tokens
 from .Rom import get_base_rom_path as get_base_rom_path
 from .Rules import set_rules
 
@@ -61,7 +61,11 @@ class PokemonStadiumWorld(World):
         super().__init__(multiworld, player)
 
     def generate_early(self):
-        self.starting_gym_keys = random.sample(gym_keys, self.options.StartingKeyCount.value)
+        if self.options.ProgressiveGLC.value == 1:
+            self.starting_gym_keys = ['Progressive Gym Key'] * self.options.StartingKeyCount.value
+        else:
+            self.starting_gym_keys = random.sample(gym_keys, self.options.StartingKeyCount.value)
+
         for key in self.starting_gym_keys:
             self.multiworld.push_precollected(self.create_item(key))
 
@@ -82,6 +86,8 @@ class PokemonStadiumWorld(World):
             "options": {
                 "VictoryCondition":         self.options.VictoryCondition.value,
                 "BadgeRequirement":         self.options.BadgeRequirement.value,
+                "StartingKeyCount":         self.options.StartingKeyCount.value,
+                "ProgressiveGLC":           self.options.ProgressiveGLC.value,
                 "BaseStatTotalRandomness":  self.options.BaseStatTotalRandomness.value,
                 "RentalRandomness":         self.options.RentalRandomness.value,
                 "RentalListShuffle":        self.options.RentalListShuffle.value,

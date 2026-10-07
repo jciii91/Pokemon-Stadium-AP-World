@@ -38,6 +38,17 @@ class StartingKeyCount(Range):
     range_end = 8
     default = 3
 
+class ProgressiveGLC(Toggle):
+    """
+    Toggle on to unlock gyms progressively instead of randomly.
+    The gym keys will be replaced with Progressive Gym Keys. Each key received unlocks the next gym.
+    This option is off by default.
+    """
+    display_name = 'Progressive Gym Leader Castle'
+    option_off = 0
+    option_on = 1
+    default = 0
+
 class Trainersanity(Toggle):
     """
     Toggle on to make all Trainers into checks. This option is off by default.
@@ -73,17 +84,19 @@ class RentalRandomness(Toggle):
     option_on = 1
     default = 0
 
-class RentalListShuffle(Toggle):
+class RentalListShuffle(Choice):
     """
     Controls whether the rental pokemon list is randomized or not.
     Instead of going in dex order, the rental tables will be shuffled.
 
-    Off - No change
-    On - All tables shuffled
+    Vanilla - No change
+    Sorted - Sorted by adjusted BST, which is calculated using the base BST and a Pokemon's moveset
+    Random - Fully randomized, with no regard to BST or moveset
     """
     display_name = "Rental List Shuffle"
-    option_off = 0
-    option_on = 1
+    option_vanilla = 0
+    option_sorted = 1
+    option_randomized = 2
     default = 0
 
 class TrainerRandomness(Toggle):
@@ -100,6 +113,7 @@ class PokemonStadiumOptions(PerGameCommonOptions):
     VictoryCondition:           VictoryCondition
     BadgeRequirement:           BadgeRequirement
     StartingKeyCount:           StartingKeyCount
+    ProgressiveGLC:             ProgressiveGLC
     BaseStatTotalRandomness:    BaseStatTotalRandomness
     RentalRandomness:           RentalRandomness
     RentalListShuffle:          RentalListShuffle
@@ -111,6 +125,7 @@ pokemon_stadium_option_groups: Dict[str, List[Any]] = {
         VictoryCondition,
         BadgeRequirement,
         StartingKeyCount,
+        ProgressiveGLC,
         Trainersanity,
     ],
     "Randomizer Options": [

@@ -1,5 +1,5 @@
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 from .Items import (
     pokemon_stadium_items,
@@ -154,57 +154,10 @@ class PokemonStadiumClient(BizHawkClient):
                 pokemon_stadium_items['Viridian City Key'].ap_code,
             ]
 
-            self.unlocked_gyms = [i + 1 for i, code in enumerate(gym_codes) if code in item_codes]
-
-            # Count badges obtained
-            badge_count = sum(1 for badge_code in gym_badge_codes if badge_code in item_codes)
-            badge_requirement = ctx.slot_data["options"]["BadgeRequirement"]
-            victory_road_open = badge_count >= badge_requirement
-            if victory_road_open:
-                self.unlocked_gyms.append(9)
-
-            if gym_codes[0] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[0], [0x00, 0x01], 'RDRAM')])
-                await self.update_brock_cursor(ctx)
-
-            if gym_codes[1] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[1], [0x00, 0x01], 'RDRAM')])
-                await self.update_misty_cursor(ctx)
-
-            if gym_codes[2] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[2], [0x00, 0x01], 'RDRAM')])
-                await self.update_surge_cursor(ctx)
-
-            if gym_codes[3] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[3], [0x00, 0x01], 'RDRAM')])
-                await self.update_erika_cursor(ctx)
-
-            if gym_codes[4] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[4], [0x00, 0x01], 'RDRAM')])
-                await self.update_koga_cursor(ctx)
-
-            if gym_codes[5] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[5], [0x00, 0x01], 'RDRAM')])
-                await self.update_sabrina_cursor(ctx)
-
-            if gym_codes[6] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[6], [0x00, 0x01], 'RDRAM')])
-                await self.update_blaine_cursor(ctx)
-
-            if gym_codes[7] in item_codes:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[7], [0x00, 0x01], 'RDRAM')])
-                await self.update_giovanni_cursor(ctx, victory_road_open)
-
-            if victory_road_open:
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[8], [0x01], 'RDRAM')])
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[9], [0x01], 'RDRAM')])
-                await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[10], [0x01], 'RDRAM')])
-
-            if len(self.unlocked_gyms) > 0 and gym_info != '0804':
-                first_gym = self.unlocked_gyms[0] - 1
-                await bizhawk.write(ctx.bizhawk_ctx, [(0x147D50, [0x00, first_gym], 'RDRAM')])
-
-            await bizhawk.write(ctx.bizhawk_ctx, [(0x146F38, [0x52, 0x61, 0xFF, 0x82], 'RDRAM')])
+            if ctx.slot_data["options"]["ProgressiveGLC"] == 1:
+                await self.unlock_gyms_progressively(ctx, item_codes, gym_info)
+            else:
+                await self.unlock_gyms_randomly(ctx, gym_codes, item_codes, gym_info)
         elif glc_flag != 2 and self.glc_loaded:
             self.glc_loaded = False
 
@@ -309,6 +262,114 @@ class PokemonStadiumClient(BizHawkClient):
                 "cmd": "StatusUpdate",
                 "status": ClientStatus.CLIENT_GOAL,
             }])
+
+    async def unlock_gyms_randomly(self, ctx: 'BizHawkClientContext', gym_codes: List[int], item_codes: List[int], gym_info: str):
+        self.unlocked_gyms = [i + 1 for i, code in enumerate(gym_codes) if code in item_codes]
+        
+        # Count badges obtained
+        badge_count = sum(1 for badge_code in gym_badge_codes if badge_code in item_codes)
+        badge_requirement = ctx.slot_data["options"]["BadgeRequirement"]
+        victory_road_open = badge_count >= badge_requirement
+        if victory_road_open:
+            self.unlocked_gyms.append(9)
+
+        if gym_codes[0] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[0], [0x00, 0x01], 'RDRAM')])
+            await self.update_brock_cursor(ctx)
+
+        if gym_codes[1] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[1], [0x00, 0x01], 'RDRAM')])
+            await self.update_misty_cursor(ctx)
+
+        if gym_codes[2] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[2], [0x00, 0x01], 'RDRAM')])
+            await self.update_surge_cursor(ctx)
+
+        if gym_codes[3] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[3], [0x00, 0x01], 'RDRAM')])
+            await self.update_erika_cursor(ctx)
+
+        if gym_codes[4] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[4], [0x00, 0x01], 'RDRAM')])
+            await self.update_koga_cursor(ctx)
+
+        if gym_codes[5] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[5], [0x00, 0x01], 'RDRAM')])
+            await self.update_sabrina_cursor(ctx)
+
+        if gym_codes[6] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[6], [0x00, 0x01], 'RDRAM')])
+            await self.update_blaine_cursor(ctx)
+
+        if gym_codes[7] in item_codes:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[7], [0x00, 0x01], 'RDRAM')])
+            await self.update_giovanni_cursor(ctx, victory_road_open)
+
+        if victory_road_open:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[8], [0x01], 'RDRAM')])
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[9], [0x01], 'RDRAM')])
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[10], [0x01], 'RDRAM')])
+
+        if len(self.unlocked_gyms) > 0 and gym_info != '0804':
+            first_gym = self.unlocked_gyms[0] - 1
+            await bizhawk.write(ctx.bizhawk_ctx, [(0x147D50, [0x00, first_gym], 'RDRAM')])
+
+        await bizhawk.write(ctx.bizhawk_ctx, [(0x146F38, [0x52, 0x61, 0xFF, 0x82], 'RDRAM')])
+
+    async def unlock_gyms_progressively(self, ctx: 'BizHawkClientContext', item_codes: List[int], gym_info: str):
+        item = pokemon_stadium_items['Progressive Gym Key'].ap_code
+        key_count = sum(1 for net_item in ctx.items_received if net_item.item == item)
+        self.unlocked_gyms = [i + 1 for i in range(key_count)]
+
+        # Count badges obtained
+        badge_count = sum(1 for badge_code in gym_badge_codes if badge_code in item_codes)
+        badge_requirement = ctx.slot_data["options"]["BadgeRequirement"]
+        victory_road_open = badge_count >= badge_requirement
+        if victory_road_open:
+            self.unlocked_gyms.append(9)
+
+        if key_count > 0:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[0], [0x00, 0x01], 'RDRAM')])
+            await self.update_brock_cursor(ctx)
+
+        if key_count > 1:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[1], [0x00, 0x01], 'RDRAM')])
+            await self.update_misty_cursor(ctx)
+
+        if key_count > 2:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[2], [0x00, 0x01], 'RDRAM')])
+            await self.update_surge_cursor(ctx)
+
+        if key_count > 3:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[3], [0x00, 0x01], 'RDRAM')])
+            await self.update_erika_cursor(ctx)
+
+        if key_count > 4:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[4], [0x00, 0x01], 'RDRAM')])
+            await self.update_koga_cursor(ctx)
+
+        if key_count > 5:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[5], [0x00, 0x01], 'RDRAM')])
+            await self.update_sabrina_cursor(ctx)
+
+        if key_count > 6:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[6], [0x00, 0x01], 'RDRAM')])
+            await self.update_blaine_cursor(ctx)
+
+        if key_count > 7:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[7], [0x00, 0x01], 'RDRAM')])
+            await self.update_giovanni_cursor(ctx, victory_road_open)
+
+        if victory_road_open:
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[8], [0x01], 'RDRAM')])
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[9], [0x01], 'RDRAM')])
+            await bizhawk.write(ctx.bizhawk_ctx, [(self.GLC_UNLOCK_FLAGS[10], [0x01], 'RDRAM')])
+
+        if len(self.unlocked_gyms) > 0 and gym_info != '0804':
+            first_gym = self.unlocked_gyms[0] - 1
+            await bizhawk.write(ctx.bizhawk_ctx, [(0x147D50, [0x00, first_gym], 'RDRAM')])
+
+        await bizhawk.write(ctx.bizhawk_ctx, [(0x146F38, [0x52, 0x61, 0xFF, 0x82], 'RDRAM')])
 
     def lowest_unlocked_from(self, lower_bound):
         for i in range(lower_bound, 9):

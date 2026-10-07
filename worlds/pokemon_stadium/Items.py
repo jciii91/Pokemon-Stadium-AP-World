@@ -25,9 +25,17 @@ def create_itempool(world: 'PokemonStadiumWorld') -> List[Item]:
         world.multiworld.get_location('Beat Rival and Clear Both Master Ball Cups', world.player).place_locked_item(victory)
 
     # Place progression items
-    for name in pokemon_stadium_items:
-        if name != 'Victory' and name not in world.starting_gym_keys:
-            item_pool.append(create_item(world, name))
+    if world.options.ProgressiveGLC.value == 1:
+        remaining_keys = 8 - world.options.StartingKeyCount.value
+        item_pool += create_multiple_items(world, 'Progressive Gym Key', remaining_keys, ItemClassification.progression)
+
+        for name in pokemon_stadium_items:
+            if name not in ('Victory', 'Progressive Gym Key', *gym_keys):
+                item_pool.append(create_item(world, name))
+    else:
+        for name in pokemon_stadium_items:
+            if name != 'Victory' and name not in world.starting_gym_keys:
+                item_pool.append(create_item(world, name))
 
     item_pool += create_multiple_items(world, 'Poké Cup - Tier Upgrade', 3, ItemClassification.progression)
     item_pool += create_multiple_items(world, 'Prime Cup - Tier Upgrade', 3, ItemClassification.progression)
@@ -91,6 +99,7 @@ pokemon_stadium_items = {
     'Volcano Badge': ItemData(10000014, ItemClassification.progression),
     'Viridian City Key': ItemData(10000015, ItemClassification.progression),
     'Earth Badge': ItemData(10000016, ItemClassification.progression),
+    'Progressive Gym Key': ItemData(10000017, ItemClassification.progression),
 
     # Victory is added here since in this organization it needs to be in the default item pool
     'Victory': ItemData(10000000, ItemClassification.progression)

@@ -388,27 +388,24 @@ class Randomizer():
 
 
     def randomize_glc_rentals_round1(self, patch) -> None:
-        if self.rental_factor == 0:
-            return
-
         offset = rom_offsets[self.version]["Rentals_GymCastle_Round1"] + 4
         factor = self.rental_factor
         kanto_dex_copy = deepcopy(kanto_dex_names[:149])
 
         for i, pokemon in enumerate(kanto_dex_copy):
             pokemon["index"] = i
+            bst = sum(pokemon["bst"])
+            pokemon["modified_bst"] = bst
 
             if factor > 0:
-                bst = sum(pokemon["bst"])
                 new_attacks, modifiers = randomMovesetGenerator.MovesetGenerator.get_random_moveset_and_modifiers(bst, seed=self.seed)
                 pokemon["attacks"] = new_attacks
                 pokemon["modified_bst"] = bst * (sum(modifiers) / 4)
 
-        if self.shuffle_factor > 0:
-            if factor > 0:
-                kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
-            else:
-                self.random.shuffle(kanto_dex_copy)
+        if self.shuffle_factor == 1:
+            kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
+        elif self.shuffle_factor == 2:
+            self.random.shuffle(kanto_dex_copy)
 
         for pokemon in kanto_dex_copy:
             offset = self.write_pokemon_bytes(patch, offset, pokemon["index"], pokemon, factor, 50, "GLC")
@@ -416,27 +413,24 @@ class Randomizer():
 
 
     def randomize_pokecup_rentals(self, patch) -> None:
-        if self.rental_factor == 0:
-            return
-
         offset = rom_offsets[self.version]["Rentals_PokeCup"] + 4
         factor = self.rental_factor
         kanto_dex_copy = deepcopy(kanto_dex_names[:149])
 
         for i, pokemon in enumerate(kanto_dex_copy):
             pokemon["index"] = i
+            bst = sum(pokemon["bst"])
+            pokemon["modified_bst"] = bst
 
             if factor > 0:
-                bst = sum(pokemon["bst"])
                 new_attacks, modifiers = randomMovesetGenerator.MovesetGenerator.get_random_moveset_and_modifiers(bst, seed=self.seed)
                 pokemon["attacks"] = new_attacks
                 pokemon["modified_bst"] = bst * (sum(modifiers) / 4)
 
-        if self.shuffle_factor > 0:
-            if factor > 0:
-                kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
-            else:
-                self.random.shuffle(kanto_dex_copy)
+        if self.shuffle_factor == 1:
+            kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
+        elif self.shuffle_factor == 2:
+            self.random.shuffle(kanto_dex_copy)
 
         for pokemon in kanto_dex_copy:
             offset = self.write_pokemon_bytes(patch, offset, pokemon["index"], pokemon, factor, 50, "PokeCup")
@@ -444,27 +438,24 @@ class Randomizer():
 
 
     def randomize_primecup_rentals_round1(self, patch) -> None:
-        if self.rental_factor == 0:
-            return
-
         offset = rom_offsets[self.version]["Rentals_PrimeCup_Round1"] + 4
         factor = self.rental_factor
         kanto_dex_copy = deepcopy(kanto_dex_names[:149])
 
         for i, pokemon in enumerate(kanto_dex_copy):
             pokemon["index"] = i
+            bst = sum(pokemon["bst"])
+            pokemon["modified_bst"] = bst
 
             if factor > 0:
-                bst = sum(pokemon["bst"])
                 new_attacks, modifiers = randomMovesetGenerator.MovesetGenerator.get_random_moveset_and_modifiers(bst, seed=self.seed)
                 pokemon["attacks"] = new_attacks
                 pokemon["modified_bst"] = bst * (sum(modifiers) / 4)
 
-        if self.shuffle_factor > 0:
-            if factor > 0:
-                kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
-            else:
-                self.random.shuffle(kanto_dex_copy)
+        if self.shuffle_factor == 1:
+            kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
+        elif self.shuffle_factor == 2:
+            self.random.shuffle(kanto_dex_copy)
 
         for pokemon in kanto_dex_copy:
             offset = self.write_pokemon_bytes(patch, offset, pokemon["index"], pokemon, factor, 100, "PrimeCup")
@@ -472,27 +463,22 @@ class Randomizer():
 
 
     def randomize_petitcup_rentals(self, patch) -> None:
-        if self.rental_factor == 0:
-            return
-
         offset = rom_offsets[self.version]["Rentals_PetitCup"] + 4
         factor = self.rental_factor
         kanto_dex_copy = deepcopy(kanto_dex_names[:149])
 
         for i, pokemon in enumerate(kanto_dex_copy):
             pokemon["index"] = i
+            bst = sum(pokemon["bst"])
+            pokemon["modified_bst"] = bst
 
             if factor > 0:
-                bst = sum(pokemon["bst"])
                 new_attacks, modifiers = randomMovesetGenerator.MovesetGenerator.get_random_moveset_and_modifiers(bst, seed=self.seed)
                 pokemon["attacks"] = new_attacks
                 pokemon["modified_bst"] = bst * (sum(modifiers) / 4)
 
-        if self.shuffle_factor > 0:
-            if factor > 0:
-                kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
-            else:
-                self.random.shuffle(kanto_dex_copy)
+        if self.shuffle_factor == 1:
+            kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
 
         for pokemon in kanto_dex_copy:
             if pokemon["index"] not in petit_cup_indexes:
@@ -503,27 +489,22 @@ class Randomizer():
 
 
     def randomize_pikacup_rentals(self, patch) -> None:
-        if self.rental_factor == 0:
-            return
-
         offset = rom_offsets[self.version]["Rentals_PikaCup"] + 4
         factor = self.rental_factor
         kanto_dex_copy = deepcopy(kanto_dex_names[:149])
 
         for i, pokemon in enumerate(kanto_dex_copy):
             pokemon["index"] = i
+            bst = sum(pokemon["bst"])
+            pokemon["modified_bst"] = bst
 
             if factor > 0:
-                bst = sum(pokemon["bst"])
                 new_attacks, modifiers = randomMovesetGenerator.MovesetGenerator.get_random_moveset_and_modifiers(bst, seed=self.seed)
                 pokemon["attacks"] = new_attacks
                 pokemon["modified_bst"] = bst * (sum(modifiers) / 4)
 
-        if self.shuffle_factor > 0:
-            if factor > 0:
-                kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
-            else:
-                self.random.shuffle(kanto_dex_copy)
+        if self.shuffle_factor == 1:
+            kanto_dex_copy.sort(key=lambda pokemon: pokemon["modified_bst"])
 
         for pokemon in kanto_dex_copy:
             if pokemon["index"] not in pika_cup_indexes:
